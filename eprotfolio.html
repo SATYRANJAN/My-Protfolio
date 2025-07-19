@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Student Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      overflow-x: hidden;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    header h1 {
+      font-size: 28px;
+      color: #00ffe1;
+    }
+    .section {
+      display: none;
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    }
+    .section.active {
+      display: block;
+    }
+    h2 {
+      font-size: 26px;
+      margin-bottom: 10px;
+      color: #00ccff;
+    }
+    p, li {
+      font-size: 18px;
+      line-height: 1.6;
+    }
+    ul {
+      margin-left: 20px;
+    }
+    footer {
+      text-align: center;
+      padding: 30px;
+      background-color: #111;
+      color: #aaa;
+      display: none;
+    }
+    #editBtn, #saveBtn, #addSectionBtn, #addImageBtn {
+      position: fixed;
+      bottom: 20px;
+      background: #00ffe1;
+      color: black;
+      padding: 10px 16px;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 999;
+    }
+    #editBtn { right: 20px; }
+    #saveBtn { right: 20px; bottom: 60px; display: none; }
+    #addSectionBtn { right: 20px; bottom: 100px; display: none; }
+    #addImageBtn { right: 20px; bottom: 140px; display: none; }
+
+    #welcomeOverlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: url('https://images.unsplash.com/photo-1557682224-5b8590cd9ec5') no-repeat center center/cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    #welcomeBox {
+      text-align: center;
+      color: white;
+      padding: 40px;
+      background-color: rgba(0, 0, 0, 0.6);
+      border-radius: 16px;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.4);
+      animation: slideFade 1.5s ease-in-out;
+    }
+    #welcomeBox h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    #enterBtn {
+      background: #00ffe1;
+      color: #000;
+      padding: 12px 24px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    @keyframes slideFade {
+      from {
+        opacity: 0;
+        transform: translateY(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="welcomeOverlay">
+    <div id="welcomeBox">
+      <h1>Welcome to My Portfolio</h1>
+      <p>Hi, I'm Satyaranjan Verma</p>
+      <button id="enterBtn">Explore</button>
+    </div>
+  </div>
+
+  <header>
+    <h1 id="title">My Portfolio</h1>
+  </header>
+
+  <section id="about" class="section">
+    <h2 contenteditable="false">About Me</h2>
+    <p contenteditable="false">I’m Satyaranjan Verma, a passionate student who loves coding. My dream is to become a Software Engineer.</p>
+  </section>
+
+  <section id="skills" class="section">
+    <h2 contenteditable="false">Skills</h2>
+    <ul>
+      <li contenteditable="false">Python (Beginner)</li>
+      <li contenteditable="false">Problem Solving</li>
+      <li contenteditable="false">Learning Mindset</li>
+      <li contenteditable="false">Consistency & Discipline</li>
+    </ul>
+  </section>
+
+  <section id="education" class="section">
+    <h2 contenteditable="false">Education</h2>
+    <p contenteditable="false">Currently studying in Class 9 at Sunbeam School, Ballia.</p>
+  </section>
+
+  <section id="contact" class="section">
+    <h2 contenteditable="false">Contact</h2>
+    <p contenteditable="false">Currently not available. Contact section coming soon!</p>
+  </section>
+
+  <section id="thanks" class="section">
+    <h2 contenteditable="false">Thanks for Visiting</h2>
+    <p contenteditable="false">I appreciate your time. Stay connected and keep learning!</p>
+  </section>
+
+  <footer id="footer">
+    <p contenteditable="false">“Learning today, leading tomorrow.”</p>
+    <p>&copy; 2025 Satyaranjan Verma</p>
+  </footer>
+
+  <button id="editBtn">Edit</button>
+  <button id="saveBtn">Save</button>
+  <button id="addSectionBtn">+ Add Section</button>
+  <button id="addImageBtn">📷 Add Image</button>
+
+  <script>
+    const editableElements = document.querySelectorAll("[contenteditable]");
+
+    document.getElementById("enterBtn").addEventListener("click", () => {
+      document.getElementById("welcomeOverlay").style.display = "none";
+      document.querySelectorAll(".section").forEach(sec => sec.style.display = "block");
+      document.getElementById("footer").style.display = "block";
+    });
+
+    document.getElementById("editBtn").addEventListener("click", () => {
+      const password = prompt("Enter edit password:");
+      if (password === "1234") {
+        editableElements.forEach(el => el.setAttribute("contenteditable", "true"));
+        document.getElementById("saveBtn").style.display = "inline-block";
+        document.getElementById("addSectionBtn").style.display = "inline-block";
+        document.getElementById("addImageBtn").style.display = "inline-block";
+        alert("Edit mode is ON");
+      } else {
+        alert("Incorrect password. Edit access denied.");
+      }
+    });
+
+    document.getElementById("saveBtn").addEventListener("click", () => {
+      editableElements.forEach(el => el.setAttribute("contenteditable", "false"));
+      document.getElementById("saveBtn").style.display = "none";
+      document.getElementById("addSectionBtn").style.display = "none";
+      document.getElementById("addImageBtn").style.display = "none";
+      alert("Changes saved (temporarily). Export HTML to save permanently.");
+    });
+
+    document.getElementById("addSectionBtn").addEventListener("click", () => {
+      const section = document.createElement("section");
+      section.className = "section";
+      section.innerHTML = `
+        <h2 contenteditable="true">New Section</h2>
+        <p contenteditable="true">Write something here...</p>
+      `;
+      document.body.insertBefore(section, document.getElementById("footer"));
+    });
+
+    document.getElementById("addImageBtn").addEventListener("click", () => {
+      const input = document.createElement("input");
+      input.type = "file";
+      input.accept = "image/*";
+      input.style.display = "none";
+      document.body.appendChild(input);
+
+      input.addEventListener("change", () => {
+        const file = input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = () => {
+            const img = document.createElement("img");
+            img.src = reader.result;
+            img.style.maxWidth = "100%";
+            img.style.borderRadius = "12px";
+            img.style.margin = "20px 0";
+            const sel = window.getSelection();
+            if (sel.rangeCount > 0) {
+              sel.getRangeAt(0).insertNode(img);
+            }
+          };
+          reader.readAsDataURL(file);
+        }
+        document.body.removeChild(input);
+      });
+
+      input.click();
+    });
+  </script>
+</body>
+</html>
